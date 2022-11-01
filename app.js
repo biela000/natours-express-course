@@ -4,6 +4,9 @@ const morgan = require('morgan');
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 
+const AppError = require('./utils/appError');
+const errorHandler = require('./utils/errorHandler');
+
 const app = express();
 
 // MIDDLEWARE (1)
@@ -28,6 +31,16 @@ app.use((req, res, next) => {
 // ROUTERS (2)
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
+
+app.all('*', (req, res, next) => {
+  /*res.status(404).json({
+    status: 'fail',
+    message: `Could not find ${req.originalUrl} on this server!`,
+  });*/
+  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+});
+
+app.use(errorHandler);
 
 /*app.get('/api/v1/tours', getAllTours);
 app.get('/api/v1/tours/:id', getOneTour);

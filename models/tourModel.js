@@ -31,6 +31,7 @@ const tourSchema = new mongoose.Schema(
       type: String,
       required: [true, 'A tour must have a difficulty'],
       validate: [validator.isAlpha, 'Difficulty must be made of letters'],
+      // enum: ['easy', 'medium', 'difficult'],
       //validate: { values: ['easy', 'medium', 'difficult'], message: 'Must be one of the values' }
     },
     ratingsAverage: {
