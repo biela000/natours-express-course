@@ -115,6 +115,4 @@ tourSchema.pre('aggregate', function (next) {
   next();
 });
 
-// AGGREGATION MIDDLEWARE
-
 module.exports = mongoose.model('Tour', tourSchema);
